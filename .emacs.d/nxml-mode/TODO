@@ -1,0 +1,194 @@
+Schema-sensitive features
+-------------------------
+
+Take advantage of a:documentation.
+
+Provide feasible validation toggle.
+
+Save the validation state as a property on the error overlay to enable
+more detailed diagnosis.
+
+Provide an *Error Summary* buffer showing all the validation errors.
+
+Allow schema to be associated with document using processing
+instruction in prolog that contains URI of schema.
+
+Allow processing instruction in prolog to contain the compact
+syntax schema directly.
+
+Allow schema to be associated with document using DTD public ID.
+
+Command to insert an element template, including all required
+attributes and child elements.
+
+Schema-sensitive paragraph filling (intelligently using content models
+to distinguish block and inline elements).
+
+Well-formed XML support
+-----------------------
+
+Encoding declaration.
+
+Completion and namespaces.
+
+Complete entity names.
+
+Support for declaring character entities.  Allow user to specify a
+list of files containing entity declarations, which automatically get
+added to internal subset when used. Provide command to optimize
+declared character entities, sorting and removing unused declarations.
+
+Command to repeat the last tag.
+
+Paragraph filling.
+
+Set up emacs coding system to use XML encoding declaration.
+
+Comment support.
+
+Structure view.
+
+Flash matching >.
+
+Collapse and expand elements (using invisible, intangible and display
+text properties).
+
+Datatypes
+---------
+
+Figure out workaround for CJK characters with regexps.
+
+Does category C contain Cn?
+
+Do ENTITY datatype properly.
+
+Handling all XML features
+-------------------------
+
+Handle internal general entity declarations containing elements.
+
+Handle external general entity declarations.
+
+Handle default attribute declarations in internal subset.
+
+Handle parameter entities (including DTD).
+
+RELAX NG conformance
+--------------------
+
+Do complete schema checking, at least optionally.
+
+Detect include/external loops during schema parse.
+
+
+Catching XML errors
+-------------------
+
+Check public identifiers.
+
+Check default attribute values.
+
+Performance
+-----------
+
+Cache after first tag.
+
+Introduce a new name class that is a choice between names (so that
+we can use member)
+
+intern-choice should simplify after patterns with same 1st/2nd args
+
+Error recovery
+--------------
+
+Don't stop at newline in looking for close of start-tag.
+
+Use indentation to guide recovery from mismatched end-tags
+
+Don't keep parsing when currently not well-formed but previously
+well-formed
+
+Try to recover from a bad start-tag by popping an open element if
+there was a mismatched end-tag unaccounted for.
+
+Try to recover from a bad start-tag open on the hypothesis that there
+was a typo in the namespace URI.
+
+Better recovery from ill-formed XML declarations.
+
+Useability improvements
+-----------------------
+
+Don't complete just prefix.
+
+Should print a "Parsing..." message during long movements.
+
+Provide better position for reference to undefined pattern error.
+
+Put Well-formed in the mode-line when validating against any-content.
+
+Trim marking of illegal data for whitespace.
+
+Show Invalid status as soon as we are sure it's invalid, rather than
+waiting for everything to be completely up to date.
+
+When narrowed, Valid or Invalid status should probably consider only
+validity of narrowed region.
+
+Completion of < should consider start-tags, comments, CDATA sections.
+
+Bug fixes
+---------
+
+Figure out what regex use for NCName and use it consistently,
+
+Should have not-well-formed tokens in ref.
+
+Require version in XML declaration? Probably not because prevents
+use for external parsed entities. At least forbid standalone
+without version.
+
+Reject schema that compiles to rng-not-allowed-ipattern.
+
+Move point backwards on schema parse error so that it's on the right token.
+
+Internal
+--------
+
+xmltok should make available replacement text of entities containing
+elements
+
+Avoid having rng-valid depend on rng-cmpct.  Introduce a
+rng-schema-loader-alist variable mapping filenames to schema loader
+functions.
+
+Port to XEmacs.
+
+Fontification
+-------------
+
+Allow fontification to be data-type sensitive.
+
+Notes
+-----
+
+How can we allow an error to be displayed on a different token from
+where it is detected?  In particular, for a missing closing ">" we
+will need to display it at the beginning of the following token.  At
+the moment, when we parse the following token the error overlay will
+get cleared.
+
+How should rng-goto-next-error deal with narrowing?
+
+Perhaps should merge errors having same start position even if they
+have different ends.
+
+Should rng-validate-mode give the user an opportunity to specify a
+schema if there is currently none? Or should it at least give a hint
+to the user how to specify a non-vacuous schema?
+
+How to handle surrogates? One possibility is to be compatible with
+utf8.e: represent as sequence of 4 chars.  But utf-16 is incompatible
+with this.
+
+Should we distinguish well-formedness errors from invalidity errors?
